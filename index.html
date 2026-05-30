@@ -1,4 +1,3 @@
-# mendel-lab
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -11,7 +10,6 @@
             padding: 0;
             box-sizing: border-box;
         }
-
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -21,8 +19,6 @@
             justify-content: center;
             padding: 20px;
         }
-
-        /* ----- LOGIN / REGISTER ----- */
         .auth-container {
             background: white;
             padding: 40px;
@@ -32,18 +28,8 @@
             max-width: 420px;
             text-align: center;
         }
-
-        .auth-container h2 {
-            margin-bottom: 10px;
-            color: #333;
-        }
-
-        .auth-container .subtitle {
-            color: #666;
-            margin-bottom: 25px;
-            font-size: 0.95em;
-        }
-
+        .auth-container h2 { margin-bottom: 10px; color: #333; }
+        .auth-container .subtitle { color: #666; margin-bottom: 25px; font-size: 0.95em; }
         .auth-input {
             width: 100%;
             padding: 12px 15px;
@@ -53,12 +39,7 @@
             font-size: 16px;
             transition: border 0.3s;
         }
-
-        .auth-input:focus {
-            border-color: #667eea;
-            outline: none;
-        }
-
+        .auth-input:focus { border-color: #667eea; outline: none; }
         .auth-btn {
             width: 100%;
             padding: 14px;
@@ -72,12 +53,14 @@
             margin-top: 15px;
             transition: transform 0.2s;
         }
-
-        .auth-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        .auth-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4); }
+        .guest-btn {
+            background: #f0f0f0;
+            color: #555;
+            border: 2px solid #ddd;
+            margin-top: 10px;
         }
-
+        .guest-btn:hover { background: #e0e0e0; }
         .error-message {
             color: #e74c3c;
             background: #fce4ec;
@@ -86,7 +69,6 @@
             margin-top: 15px;
             display: none;
         }
-
         .success-message {
             color: #27ae60;
             background: #e8f5e9;
@@ -95,7 +77,6 @@
             margin-top: 15px;
             display: none;
         }
-
         .toggle-link {
             margin-top: 20px;
             color: #667eea;
@@ -103,12 +84,7 @@
             font-size: 0.95em;
             text-decoration: underline;
         }
-
-        .toggle-link:hover {
-            color: #764ba2;
-        }
-
-        /* ----- SIMULADOR ----- */
+        .toggle-link:hover { color: #764ba2; }
         .main-container {
             max-width: 900px;
             width: 100%;
@@ -117,14 +93,12 @@
             padding: 30px;
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
         }
-
         .header-bar {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 20px;
         }
-
         .user-greeting {
             font-weight: bold;
             color: #495057;
@@ -133,7 +107,6 @@
             border-radius: 20px;
             font-size: 0.95em;
         }
-
         .logout-btn {
             background: #f8f9fa;
             border: 2px solid #e0e0e0;
@@ -144,68 +117,26 @@
             color: #495057;
             transition: all 0.3s;
         }
-
-        .logout-btn:hover {
-            background: #e9ecef;
-            border-color: #adb5bd;
-        }
-
-        h1 {
-            text-align: center;
-            color: #333;
-            font-size: 2.2em;
-        }
-
-        h1 span {
-            font-size: 0.4em;
-            display: block;
-            color: #666;
-        }
-
-        .subtitle {
-            text-align: center;
-            color: #666;
-            margin-bottom: 25px;
-        }
-
+        .logout-btn:hover { background: #e9ecef; border-color: #adb5bd; }
+        h1 { text-align: center; color: #333; font-size: 2.2em; }
+        h1 span { font-size: 0.4em; display: block; color: #666; }
+        .subtitle { text-align: center; color: #666; margin-bottom: 25px; }
         .input-section {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 30px;
             margin-bottom: 30px;
         }
-
         .parent-section {
             background: #f8f9fa;
             padding: 20px;
             border-radius: 15px;
             border: 2px solid #e0e0e0;
         }
-
-        .parent-section h2 {
-            color: #495057;
-            margin-bottom: 15px;
-            text-align: center;
-        }
-
-        .gene-input {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .allele-input {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .allele-input label {
-            font-weight: bold;
-            min-width: 80px;
-            color: #495057;
-        }
-
+        .parent-section h2 { color: #495057; margin-bottom: 15px; text-align: center; }
+        .gene-input { display: flex; flex-direction: column; gap: 15px; }
+        .allele-input { display: flex; align-items: center; gap: 10px; }
+        .allele-input label { font-weight: bold; min-width: 80px; color: #495057; }
         .allele-input select {
             padding: 8px 12px;
             border-radius: 8px;
@@ -214,7 +145,6 @@
             font-size: 16px;
             flex: 1;
         }
-
         .trait-info {
             margin-top: 15px;
             padding: 15px;
@@ -222,19 +152,8 @@
             border-radius: 10px;
             border-left: 4px solid #2196F3;
         }
-
-        .trait-info h3 {
-            color: #1976D2;
-            margin-bottom: 10px;
-            font-size: 16px;
-        }
-
-        .trait-info p {
-            font-size: 14px;
-            color: #555;
-            margin: 5px 0;
-        }
-
+        .trait-info h3 { color: #1976D2; margin-bottom: 10px; font-size: 16px; }
+        .trait-info p { font-size: 14px; color: #555; margin: 5px 0; }
         .generate-btn {
             display: block;
             width: 100%;
@@ -249,27 +168,10 @@
             transition: transform 0.2s, box-shadow 0.2s;
             margin: 20px 0;
         }
-
-        .generate-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
-        }
-
-        .results-section {
-            display: none;
-        }
-
-        .punnett-square {
-            margin: 30px auto;
-            max-width: 400px;
-        }
-
-        .punnett-square h2 {
-            text-align: center;
-            color: #333;
-            margin-bottom: 20px;
-        }
-
+        .generate-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4); }
+        .results-section { display: none; }
+        .punnett-square { margin: 30px auto; max-width: 400px; }
+        .punnett-square h2 { text-align: center; color: #333; margin-bottom: 20px; }
         .grid {
             display: grid;
             grid-template-columns: 50px 1fr 1fr;
@@ -280,7 +182,6 @@
             border-radius: 10px;
             overflow: hidden;
         }
-
         .cell {
             display: flex;
             align-items: center;
@@ -291,34 +192,16 @@
             background: white;
             min-height: 60px;
         }
-
-        .cell.header {
-            background: #f0f0f0;
-        }
-
-        .cell.parent {
-            background: #e3f2fd;
-            font-size: 16px;
-        }
-
-        .cell.offspring {
-            background: white;
-            font-size: 20px;
-            transition: all 0.3s;
-        }
-
-        .cell.offspring:hover {
-            background: #f3e5f5;
-            transform: scale(1.05);
-        }
-
+        .cell.header { background: #f0f0f0; }
+        .cell.parent { background: #e3f2fd; font-size: 16px; }
+        .cell.offspring { background: white; font-size: 20px; transition: all 0.3s; }
+        .cell.offspring:hover { background: #f3e5f5; transform: scale(1.05); }
         .statistics {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 15px;
             margin-top: 20px;
         }
-
         .stat-card {
             background: #f8f9fa;
             padding: 20px;
@@ -326,28 +209,9 @@
             text-align: center;
             border: 2px solid #e0e0e0;
         }
-
-        .stat-card h3 {
-            color: #495057;
-            margin-bottom: 10px;
-            font-size: 14px;
-            text-transform: uppercase;
-        }
-
-        .stat-card .percentage {
-            font-size: 32px;
-            font-weight: bold;
-            color: #667eea;
-        }
-
-        .genotype-legend {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-            margin-top: 20px;
-        }
-
+        .stat-card h3 { color: #495057; margin-bottom: 10px; font-size: 14px; text-transform: uppercase; }
+        .stat-card .percentage { font-size: 32px; font-weight: bold; color: #667eea; }
+        .genotype-legend { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 20px; }
         .legend-item {
             display: flex;
             align-items: center;
@@ -357,21 +221,8 @@
             border-radius: 20px;
             border: 2px solid #e0e0e0;
         }
-
-        .legend-color {
-            width: 20px;
-            height: 20px;
-            border-radius: 4px;
-        }
-
-        .example-buttons {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-bottom: 20px;
-        }
-
+        .legend-color { width: 20px; height: 20px; border-radius: 4px; }
+        .example-buttons { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-bottom: 20px; }
         .example-btn {
             padding: 8px 16px;
             background: #e3f2fd;
@@ -382,20 +233,10 @@
             font-size: 14px;
             transition: all 0.3s;
         }
-
-        .example-btn:hover {
-            background: #2196F3;
-            color: white;
-        }
-
-        .hidden {
-            display: none !important;
-        }
-
+        .example-btn:hover { background: #2196F3; color: white; }
+        .hidden { display: none !important; }
         @media (max-width: 600px) {
-            .input-section {
-                grid-template-columns: 1fr;
-            }
+            .input-section { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -409,6 +250,7 @@
             <input type="text" id="loginUsername" class="auth-input" placeholder="Usuario" autocomplete="off">
             <input type="password" id="loginPassword" class="auth-input" placeholder="Contraseña">
             <button id="loginButton" class="auth-btn">Entrar</button>
+            <button id="guestButton" class="auth-btn guest-btn">👤 Entrar como invitado</button>
             <div id="loginError" class="error-message"></div>
             <p class="toggle-link" id="goToRegister">¿No tienes cuenta? Regístrate aquí</p>
         </div>
@@ -437,7 +279,6 @@
             🧬 Simulador de Herencia Genética
             <span>Cuadro de Punnett Interactivo</span>
         </h1>
-        
         <p class="subtitle">Explora cómo se heredan los caracteres genéticos entre generaciones</p>
 
         <div class="example-buttons">
@@ -469,7 +310,6 @@
                     <p><strong>aa:</strong> Homocigoto recesivo</p>
                 </div>
             </div>
-
             <div class="parent-section">
                 <h2>👤 Parental 2</h2>
                 <div class="gene-input">
@@ -502,9 +342,7 @@
                 <h2>📊 Cuadro de Punnett</h2>
                 <div class="grid" id="punnettGrid"></div>
             </div>
-
             <div class="statistics" id="statistics"></div>
-
             <div class="genotype-legend" id="legend"></div>
         </div>
     </div>
@@ -512,16 +350,13 @@
     <script>
         // ---------- BASE DE DATOS SIMULADA ----------
         const USERS_STORAGE_KEY = "genetics_sim_users";
-
         function getUsersDB() {
             const stored = localStorage.getItem(USERS_STORAGE_KEY);
             return stored ? JSON.parse(stored) : {};
         }
-
         function saveUsersDB(users) {
             localStorage.setItem(USERS_STORAGE_KEY, JSON.stringify(users));
         }
-
         function initDefaultUser() {
             const users = getUsersDB();
             if (!users["admin"]) {
@@ -532,15 +367,12 @@
 
         // ---------- SESIÓN ----------
         const SESSION_KEY = "genetics_sim_session";
-
         function saveSession(username) {
             localStorage.setItem(SESSION_KEY, username);
         }
-
         function getSessionUser() {
             return localStorage.getItem(SESSION_KEY);
         }
-
         function clearSession() {
             localStorage.removeItem(SESSION_KEY);
         }
@@ -559,7 +391,6 @@
             registerForm.classList.remove("hidden");
             clearMessages();
         });
-
         document.getElementById("goToLogin").addEventListener("click", () => {
             registerForm.classList.add("hidden");
             loginForm.classList.remove("hidden");
@@ -567,12 +398,9 @@
         });
 
         function clearMessages() {
-            loginError.style.display = "none";
-            loginError.textContent = "";
-            registerError.style.display = "none";
-            registerError.textContent = "";
-            registerSuccess.style.display = "none";
-            registerSuccess.textContent = "";
+            loginError.style.display = "none"; loginError.textContent = "";
+            registerError.style.display = "none"; registerError.textContent = "";
+            registerSuccess.style.display = "none"; registerSuccess.textContent = "";
         }
 
         function showApp() {
@@ -580,9 +408,7 @@
             appScreen.classList.remove("hidden");
             const user = getSessionUser();
             document.getElementById("userGreeting").textContent = `👋 Hola, ${user}`;
-            if (typeof loadExample === "function") {
-                loadExample('mendel');
-            }
+            if (typeof loadExample === "function") loadExample('mendel');
         }
 
         function showAuth() {
@@ -598,18 +424,16 @@
             document.getElementById("regPasswordConfirm").value = "";
         }
 
-        // ---------- LOGIN ----------
+        // ---------- LOGIN NORMAL ----------
         document.getElementById("loginButton").addEventListener("click", () => {
             const username = document.getElementById("loginUsername").value.trim();
             const password = document.getElementById("loginPassword").value.trim();
             const users = getUsersDB();
-
             if (!username || !password) {
                 loginError.textContent = "Por favor completa todos los campos.";
                 loginError.style.display = "block";
                 return;
             }
-
             if (users[username] && users[username] === password) {
                 saveSession(username);
                 showApp();
@@ -619,11 +443,17 @@
                 document.getElementById("loginPassword").value = "";
             }
         });
-
         document.getElementById("loginPassword").addEventListener("keypress", (e) => {
             if (e.key === "Enter") document.getElementById("loginButton").click();
         });
-// ---------- REGISTRO ----------
+
+        // ---------- ENTRAR COMO INVITADO ----------
+        document.getElementById("guestButton").addEventListener("click", () => {
+            saveSession("Invitado");
+            showApp();
+        });
+
+        // ---------- REGISTRO ----------
         document.getElementById("registerButton").addEventListener("click", () => {
             const username = document.getElementById("regUsername").value.trim();
             const password = document.getElementById("regPassword").value;
@@ -632,37 +462,27 @@
 
             if (!username || !password || !passwordConfirm) {
                 registerError.textContent = "Todos los campos son obligatorios.";
-                registerError.style.display = "block";
-                return;
+                registerError.style.display = "block"; return;
             }
-
             if (username.length < 3) {
                 registerError.textContent = "El usuario debe tener al menos 3 caracteres.";
-                registerError.style.display = "block";
-                return;
+                registerError.style.display = "block"; return;
             }
-
             if (password.length < 4) {
                 registerError.textContent = "La contraseña debe tener al menos 4 caracteres.";
-                registerError.style.display = "block";
-                return;
+                registerError.style.display = "block"; return;
             }
-
             if (password !== passwordConfirm) {
                 registerError.textContent = "Las contraseñas no coinciden.";
-                registerError.style.display = "block";
-                return;
+                registerError.style.display = "block"; return;
             }
-
             if (users[username]) {
                 registerError.textContent = "El usuario ya existe. Elige otro nombre.";
-                registerError.style.display = "block";
-                return;
+                registerError.style.display = "block"; return;
             }
 
             users[username] = password;
             saveUsersDB(users);
-
             registerError.style.display = "none";
             registerSuccess.textContent = "¡Cuenta creada con éxito! Ahora puedes iniciar sesión.";
             registerSuccess.style.display = "block";
@@ -694,7 +514,7 @@
         function checkSessionOnLoad() {
             initDefaultUser();
             const currentUser = getSessionUser();
-            if (currentUser && getUsersDB()[currentUser]) {
+            if (currentUser && (getUsersDB()[currentUser] || currentUser === "Invitado")) {
                 showApp();
             } else {
                 clearSession();
