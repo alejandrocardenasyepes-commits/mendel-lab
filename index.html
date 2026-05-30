@@ -1,0 +1,877 @@
+# mendel-lab
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de Herencia - Cuadro de Punnett</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        /* ----- LOGIN / REGISTER ----- */
+        .auth-container {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            width: 100%;
+            max-width: 420px;
+            text-align: center;
+        }
+
+        .auth-container h2 {
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .auth-container .subtitle {
+            color: #666;
+            margin-bottom: 25px;
+            font-size: 0.95em;
+        }
+
+        .auth-input {
+            width: 100%;
+            padding: 12px 15px;
+            margin: 10px 0;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: border 0.3s;
+        }
+
+        .auth-input:focus {
+            border-color: #667eea;
+            outline: none;
+        }
+
+        .auth-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: transform 0.2s;
+        }
+
+        .auth-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .error-message {
+            color: #e74c3c;
+            background: #fce4ec;
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 15px;
+            display: none;
+        }
+
+        .success-message {
+            color: #27ae60;
+            background: #e8f5e9;
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 15px;
+            display: none;
+        }
+
+        .toggle-link {
+            margin-top: 20px;
+            color: #667eea;
+            cursor: pointer;
+            font-size: 0.95em;
+            text-decoration: underline;
+        }
+
+        .toggle-link:hover {
+            color: #764ba2;
+        }
+
+        /* ----- SIMULADOR ----- */
+        .main-container {
+            max-width: 900px;
+            width: 100%;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .header-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .user-greeting {
+            font-weight: bold;
+            color: #495057;
+            background: #f1f3f5;
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-size: 0.95em;
+        }
+
+        .logout-btn {
+            background: #f8f9fa;
+            border: 2px solid #e0e0e0;
+            padding: 8px 18px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            color: #495057;
+            transition: all 0.3s;
+        }
+
+        .logout-btn:hover {
+            background: #e9ecef;
+            border-color: #adb5bd;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            font-size: 2.2em;
+        }
+
+        h1 span {
+            font-size: 0.4em;
+            display: block;
+            color: #666;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 25px;
+        }
+
+        .input-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .parent-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 15px;
+            border: 2px solid #e0e0e0;
+        }
+
+        .parent-section h2 {
+            color: #495057;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .gene-input {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .allele-input {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .allele-input label {
+            font-weight: bold;
+            min-width: 80px;
+            color: #495057;
+        }
+
+        .allele-input select {
+            padding: 8px 12px;
+            border-radius: 8px;
+            border: 1px solid #ced4da;
+            background: white;
+            font-size: 16px;
+            flex: 1;
+        }
+
+        .trait-info {
+            margin-top: 15px;
+            padding: 15px;
+            background: #e7f3ff;
+            border-radius: 10px;
+            border-left: 4px solid #2196F3;
+        }
+
+        .trait-info h3 {
+            color: #1976D2;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .trait-info p {
+            font-size: 14px;
+            color: #555;
+            margin: 5px 0;
+        }
+
+        .generate-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin: 20px 0;
+        }
+
+        .generate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .results-section {
+            display: none;
+        }
+
+        .punnett-square {
+            margin: 30px auto;
+            max-width: 400px;
+        }
+
+        .punnett-square h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 50px 1fr 1fr;
+            grid-template-rows: 50px 1fr 1fr;
+            gap: 2px;
+            background: #333;
+            border: 2px solid #333;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .cell {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            background: white;
+            min-height: 60px;
+        }
+
+        .cell.header {
+            background: #f0f0f0;
+        }
+
+        .cell.parent {
+            background: #e3f2fd;
+            font-size: 16px;
+        }
+
+        .cell.offspring {
+            background: white;
+            font-size: 20px;
+            transition: all 0.3s;
+        }
+
+        .cell.offspring:hover {
+            background: #f3e5f5;
+            transform: scale(1.05);
+        }
+
+        .statistics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .stat-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            border: 2px solid #e0e0e0;
+        }
+
+        .stat-card h3 {
+            color: #495057;
+            margin-bottom: 10px;
+            font-size: 14px;
+            text-transform: uppercase;
+        }
+
+        .stat-card .percentage {
+            font-size: 32px;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .genotype-legend {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: #f8f9fa;
+            border-radius: 20px;
+            border: 2px solid #e0e0e0;
+        }
+
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+        }
+
+        .example-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .example-btn {
+            padding: 8px 16px;
+            background: #e3f2fd;
+            border: 2px solid #2196F3;
+            border-radius: 20px;
+            color: #1976D2;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .example-btn:hover {
+            background: #2196F3;
+            color: white;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        @media (max-width: 600px) {
+            .input-section {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Pantalla de Login / Registro -->
+    <div id="authScreen" class="auth-container">
+        <!-- Formulario de Inicio de Sesión -->
+        <div id="loginForm">
+            <h2>🔐 Iniciar Sesión</h2>
+            <p class="subtitle">Accede al simulador de genética</p>
+            <input type="text" id="loginUsername" class="auth-input" placeholder="Usuario" autocomplete="off">
+            <input type="password" id="loginPassword" class="auth-input" placeholder="Contraseña">
+            <button id="loginButton" class="auth-btn">Entrar</button>
+            <div id="loginError" class="error-message"></div>
+            <p class="toggle-link" id="goToRegister">¿No tienes cuenta? Regístrate aquí</p>
+        </div>
+
+        <!-- Formulario de Registro (oculto por defecto) -->
+        <div id="registerForm" class="hidden">
+            <h2>📝 Crear Cuenta</h2>
+            <p class="subtitle">Regístrate para usar el simulador</p>
+            <input type="text" id="regUsername" class="auth-input" placeholder="Elige un usuario" autocomplete="off">
+            <input type="password" id="regPassword" class="auth-input" placeholder="Contraseña">
+            <input type="password" id="regPasswordConfirm" class="auth-input" placeholder="Repite la contraseña">
+            <button id="registerButton" class="auth-btn">Registrarse</button>
+            <div id="registerError" class="error-message"></div>
+            <div id="registerSuccess" class="success-message"></div>
+            <p class="toggle-link" id="goToLogin">¿Ya tienes cuenta? Inicia sesión</p>
+        </div>
+    </div>
+
+    <!-- Simulador (oculto inicialmente) -->
+    <div id="appScreen" class="main-container hidden">
+        <div class="header-bar">
+            <div class="user-greeting" id="userGreeting"></div>
+            <button id="logoutButton" class="logout-btn">🚪 Cerrar sesión</button>
+        </div>
+        <h1>
+            🧬 Simulador de Herencia Genética
+            <span>Cuadro de Punnett Interactivo</span>
+        </h1>
+        
+        <p class="subtitle">Explora cómo se heredan los caracteres genéticos entre generaciones</p>
+
+        <div class="example-buttons">
+            <button class="example-btn" onclick="loadExample('mendel')">🌱 Guisantes de Mendel</button>
+            <button class="example-btn" onclick="loadExample('daltonismo')">👁️ Daltonismo (X)</button>
+            <button class="example-btn" onclick="loadExample('dihibrido')">🔬 Dihíbrido</button>
+        </div>
+
+        <div class="input-section">
+            <div class="parent-section">
+                <h2>👤 Parental 1</h2>
+                <div class="gene-input">
+                    <div class="allele-input">
+                        <label>Gen A:</label>
+                        <select class="allele1-p1">
+                            <option value="A">A (Dominante)</option>
+                            <option value="a">a (Recesivo)</option>
+                        </select>
+                        <select class="allele2-p1">
+                            <option value="A">A (Dominante)</option>
+                            <option value="a">a (Recesivo)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="trait-info">
+                    <h3>📋 Características</h3>
+                    <p><strong>AA:</strong> Homocigoto dominante</p>
+                    <p><strong>Aa:</strong> Heterocigoto</p>
+                    <p><strong>aa:</strong> Homocigoto recesivo</p>
+                </div>
+            </div>
+
+            <div class="parent-section">
+                <h2>👤 Parental 2</h2>
+                <div class="gene-input">
+                    <div class="allele-input">
+                        <label>Gen A:</label>
+                        <select class="allele1-p2">
+                            <option value="A">A (Dominante)</option>
+                            <option value="a">a (Recesivo)</option>
+                        </select>
+                        <select class="allele2-p2">
+                            <option value="A">A (Dominante)</option>
+                            <option value="a">a (Recesivo)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="trait-info">
+                    <h3>📋 Fenotipos</h3>
+                    <p><strong>AA o Aa:</strong> Fenotipo dominante</p>
+                    <p><strong>aa:</strong> Fenotipo recesivo</p>
+                </div>
+            </div>
+        </div>
+
+        <button class="generate-btn" onclick="generatePunnett()">
+            🔄 Generar Cuadro de Punnett
+        </button>
+
+        <div class="results-section" id="results">
+            <div class="punnett-square">
+                <h2>📊 Cuadro de Punnett</h2>
+                <div class="grid" id="punnettGrid"></div>
+            </div>
+
+            <div class="statistics" id="statistics"></div>
+
+            <div class="genotype-legend" id="legend"></div>
+        </div>
+    </div>
+
+    <script>
+        // ---------- BASE DE DATOS SIMULADA ----------
+        const USERS_STORAGE_KEY = "genetics_sim_users";
+
+        function getUsersDB() {
+            const stored = localStorage.getItem(USERS_STORAGE_KEY);
+            return stored ? JSON.parse(stored) : {};
+        }
+
+        function saveUsersDB(users) {
+            localStorage.setItem(USERS_STORAGE_KEY, JSON.stringify(users));
+        }
+
+        function initDefaultUser() {
+            const users = getUsersDB();
+            if (!users["admin"]) {
+                users["admin"] = "admin123";
+                saveUsersDB(users);
+            }
+        }
+
+        // ---------- SESIÓN ----------
+        const SESSION_KEY = "genetics_sim_session";
+
+        function saveSession(username) {
+            localStorage.setItem(SESSION_KEY, username);
+        }
+
+        function getSessionUser() {
+            return localStorage.getItem(SESSION_KEY);
+        }
+
+        function clearSession() {
+            localStorage.removeItem(SESSION_KEY);
+        }
+
+        // ---------- NAVEGACIÓN ----------
+        const authScreen = document.getElementById("authScreen");
+        const appScreen = document.getElementById("appScreen");
+        const loginForm = document.getElementById("loginForm");
+        const registerForm = document.getElementById("registerForm");
+        const loginError = document.getElementById("loginError");
+        const registerError = document.getElementById("registerError");
+        const registerSuccess = document.getElementById("registerSuccess");
+
+        document.getElementById("goToRegister").addEventListener("click", () => {
+            loginForm.classList.add("hidden");
+            registerForm.classList.remove("hidden");
+            clearMessages();
+        });
+
+        document.getElementById("goToLogin").addEventListener("click", () => {
+            registerForm.classList.add("hidden");
+            loginForm.classList.remove("hidden");
+            clearMessages();
+        });
+
+        function clearMessages() {
+            loginError.style.display = "none";
+            loginError.textContent = "";
+            registerError.style.display = "none";
+            registerError.textContent = "";
+            registerSuccess.style.display = "none";
+            registerSuccess.textContent = "";
+        }
+
+        function showApp() {
+            authScreen.classList.add("hidden");
+            appScreen.classList.remove("hidden");
+            const user = getSessionUser();
+            document.getElementById("userGreeting").textContent = `👋 Hola, ${user}`;
+            if (typeof loadExample === "function") {
+                loadExample('mendel');
+            }
+        }
+
+        function showAuth() {
+            appScreen.classList.add("hidden");
+            authScreen.classList.remove("hidden");
+            loginForm.classList.remove("hidden");
+            registerForm.classList.add("hidden");
+            clearMessages();
+            document.getElementById("loginUsername").value = "";
+            document.getElementById("loginPassword").value = "";
+            document.getElementById("regUsername").value = "";
+            document.getElementById("regPassword").value = "";
+            document.getElementById("regPasswordConfirm").value = "";
+        }
+
+        // ---------- LOGIN ----------
+        document.getElementById("loginButton").addEventListener("click", () => {
+            const username = document.getElementById("loginUsername").value.trim();
+            const password = document.getElementById("loginPassword").value.trim();
+            const users = getUsersDB();
+
+            if (!username || !password) {
+                loginError.textContent = "Por favor completa todos los campos.";
+                loginError.style.display = "block";
+                return;
+            }
+
+            if (users[username] && users[username] === password) {
+                saveSession(username);
+                showApp();
+            } else {
+                loginError.textContent = "Usuario o contraseña incorrectos.";
+                loginError.style.display = "block";
+                document.getElementById("loginPassword").value = "";
+            }
+        });
+
+        document.getElementById("loginPassword").addEventListener("keypress", (e) => {
+            if (e.key === "Enter") document.getElementById("loginButton").click();
+        });
+// ---------- REGISTRO ----------
+        document.getElementById("registerButton").addEventListener("click", () => {
+            const username = document.getElementById("regUsername").value.trim();
+            const password = document.getElementById("regPassword").value;
+            const passwordConfirm = document.getElementById("regPasswordConfirm").value;
+            const users = getUsersDB();
+
+            if (!username || !password || !passwordConfirm) {
+                registerError.textContent = "Todos los campos son obligatorios.";
+                registerError.style.display = "block";
+                return;
+            }
+
+            if (username.length < 3) {
+                registerError.textContent = "El usuario debe tener al menos 3 caracteres.";
+                registerError.style.display = "block";
+                return;
+            }
+
+            if (password.length < 4) {
+                registerError.textContent = "La contraseña debe tener al menos 4 caracteres.";
+                registerError.style.display = "block";
+                return;
+            }
+
+            if (password !== passwordConfirm) {
+                registerError.textContent = "Las contraseñas no coinciden.";
+                registerError.style.display = "block";
+                return;
+            }
+
+            if (users[username]) {
+                registerError.textContent = "El usuario ya existe. Elige otro nombre.";
+                registerError.style.display = "block";
+                return;
+            }
+
+            users[username] = password;
+            saveUsersDB(users);
+
+            registerError.style.display = "none";
+            registerSuccess.textContent = "¡Cuenta creada con éxito! Ahora puedes iniciar sesión.";
+            registerSuccess.style.display = "block";
+            document.getElementById("regUsername").value = "";
+            document.getElementById("regPassword").value = "";
+            document.getElementById("regPasswordConfirm").value = "";
+
+            setTimeout(() => {
+                registerForm.classList.add("hidden");
+                loginForm.classList.remove("hidden");
+                registerSuccess.style.display = "none";
+                document.getElementById("loginUsername").value = username;
+                document.getElementById("loginPassword").focus();
+            }, 2000);
+        });
+
+        document.getElementById("regPasswordConfirm").addEventListener("keypress", (e) => {
+            if (e.key === "Enter") document.getElementById("registerButton").click();
+        });
+
+        // ---------- CERRAR SESIÓN ----------
+        document.getElementById("logoutButton").addEventListener("click", () => {
+            clearSession();
+            showAuth();
+            document.getElementById("results").style.display = "none";
+        });
+
+        // ---------- COMPROBAR SESIÓN AL CARGAR ----------
+        function checkSessionOnLoad() {
+            initDefaultUser();
+            const currentUser = getSessionUser();
+            if (currentUser && getUsersDB()[currentUser]) {
+                showApp();
+            } else {
+                clearSession();
+                showAuth();
+            }
+        }
+
+        window.onload = checkSessionOnLoad;
+
+        // ---------- SIMULADOR ----------
+        function generatePunnett() {
+            const p1Alleles = [
+                document.querySelector('.allele1-p1').value,
+                document.querySelector('.allele2-p1').value
+            ];
+            const p2Alleles = [
+                document.querySelector('.allele1-p2').value,
+                document.querySelector('.allele2-p2').value
+            ];
+
+            const p1Gametes = generateGametes(p1Alleles);
+            const p2Gametes = generateGametes(p2Alleles);
+            const punnettSquare = createPunnettSquare(p1Gametes, p2Gametes);
+            
+            displayPunnettSquare(punnettSquare, p1Gametes, p2Gametes);
+            displayStatistics(punnettSquare);
+            document.getElementById('results').style.display = 'block';
+        }
+
+        function generateGametes(alleles) {
+            return alleles;
+        }
+
+        function createPunnettSquare(gametes1, gametes2) {
+            const square = [];
+            for (let g1 of gametes1) {
+                const row = [];
+                for (let g2 of gametes2) {
+                    const combination = [g1, g2].sort().join('');
+                    row.push(combination);
+                }
+                square.push(row);
+            }
+            return square;
+        }
+
+        function displayPunnettSquare(square, gametes1, gametes2) {
+            const grid = document.getElementById('punnettGrid');
+            grid.innerHTML = '';
+
+            const emptyCell = document.createElement('div');
+            emptyCell.className = 'cell header';
+            emptyCell.textContent = '♀/♂';
+            grid.appendChild(emptyCell);
+
+            gametes2.forEach(gamete => {
+                const cell = document.createElement('div');
+                cell.className = 'cell parent';
+                cell.textContent = gamete;
+                grid.appendChild(cell);
+            });
+
+            square.forEach((row, i) => {
+                const gameteCell = document.createElement('div');
+                gameteCell.className = 'cell parent';
+                gameteCell.textContent = gametes1[i];
+                grid.appendChild(gameteCell);
+
+                row.forEach(combination => {
+                    const cell = document.createElement('div');
+                    cell.className = 'cell offspring';
+                    cell.textContent = combination;
+                    if (combination === combination.toUpperCase()) {
+                        cell.style.background = '#e8f5e8';
+                    } else if (combination === combination.toLowerCase()) {
+                        cell.style.background = '#fce4ec';
+                    } else {
+                        cell.style.background = '#fff3e0';
+                    }
+                    grid.appendChild(cell);
+                });
+            });
+        }
+
+        function displayStatistics(square) {
+            const stats = document.getElementById('statistics');
+            const allCombinations = square.flat();
+            
+            const genotypeCount = {};
+            allCombinations.forEach(genotype => {
+                genotypeCount[genotype] = (genotypeCount[genotype] || 0) + 1;
+            });
+
+            let dominantPhenotype = 0;
+            let recessivePhenotype = 0;
+            allCombinations.forEach(genotype => {
+                if (genotype.includes('A') || genotype.includes('B')) {
+                    dominantPhenotype++;
+                } else {
+                    recessivePhenotype++;
+                }
+            });
+
+            const total = allCombinations.length;
+            stats.innerHTML = `
+                <div class="stat-card">
+                    <h3>Total Combinaciones</h3>
+                    <div class="percentage">${total}</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Fenotipo Dominante</h3>
+                    <div class="percentage">${Math.round((dominantPhenotype/total) * 100)}%</div>
+                    <small>${dominantPhenotype} de ${total}</small>
+                </div>
+                <div class="stat-card">
+                    <h3>Fenotipo Recesivo</h3>
+                    <div class="percentage">${Math.round((recessivePhenotype/total) * 100)}%</div>
+                    <small>${recessivePhenotype} de ${total}</small>
+                </div>
+            `;
+
+            const legend = document.getElementById('legend');
+            legend.innerHTML = `
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #e8f5e8;"></div>
+                    <span>Homocigoto Dominante</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #fff3e0;"></div>
+                    <span>Heterocigoto</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #fce4ec;"></div>
+                    <span>Homocigoto Recesivo</span>
+                </div>
+            `;
+
+            const genotypeBreakdown = document.createElement('div');
+            genotypeBreakdown.className = 'stat-card';
+            genotypeBreakdown.style.gridColumn = '1 / -1';
+            genotypeBreakdown.innerHTML = `
+                <h3>Desglose de Genotipos</h3>
+                <div style="display: flex; justify-content: space-around; margin-top: 10px; flex-wrap: wrap;">
+                    ${Object.entries(genotypeCount).map(([genotype, count]) => `
+                        <div>
+                            <strong>${genotype}:</strong> ${count}/${total} 
+                            (${Math.round((count/total) * 100)}%)
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+            stats.appendChild(genotypeBreakdown);
+        }
+
+        function loadExample(type) {
+            switch(type) {
+                case 'mendel':
+                    document.querySelector('.allele1-p1').value = 'A';
+                    document.querySelector('.allele2-p1').value = 'a';
+                    document.querySelector('.allele1-p2').value = 'A';
+                    document.querySelector('.allele2-p2').value = 'a';
+                    break;
+                case 'daltonismo':
+                    document.querySelector('.allele1-p1').value = 'A';
+                    document.querySelector('.allele2-p1').value = 'A';
+                    document.querySelector('.allele1-p2').value = 'A';
+                    document.querySelector('.allele2-p2').value = 'a';
+                    break;
+                case 'dihibrido':
+                    document.querySelector('.allele1-p1').value = 'A';
+                    document.querySelector('.allele2-p1').value = 'A';
+                    document.querySelector('.allele1-p2').value = 'a';
+                    document.querySelector('.allele2-p2').value = 'a';
+                    break;
+            }
+            generatePunnett();
+        }
+    </script>
+</body>
+</html>
